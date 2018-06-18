@@ -1,5 +1,50 @@
 from tkinter import *
 
+
+def average(array_of_entries):
+    total = 0
+    try:
+        for number in array_of_entries:
+            total += int(number.get())
+    except ValueError:
+        print('ValueError')
+        return 0
+    return round(total / len(array_of_entries), 2)
+
+
+def calculate_grade(first_year_average, second_year_average, third_year_average):
+    total = first_year_average + (second_year_average * 3) + (third_year_average * 5)
+    return round(total / 9, 2)
+
+
+def degree_classification(final_grade):
+    if final_grade >= 70:
+        return "1st"
+    elif final_grade >= 60:
+        return "2.1"
+    elif final_grade >= 50:
+        return "2.2"
+    elif final_grade >= 40:
+        return "3rd"
+    else:
+        return "Fail"
+
+
+def calculate_grade_and_classification(event):
+    year1average = average(year1Entries)
+    year2average = average(year2Entries)
+    year3average = average(year3Entries)
+    print(year1average)
+    print(year2average)
+    print(year3average)
+
+    final_grade = calculate_grade(year1average, year2average, year3average)
+    print(final_grade)
+
+    results = degree_classification(final_grade)
+    print(results)
+
+
 root = Tk()
 root.title("My Uni Grades Calculator")
 
@@ -35,27 +80,33 @@ thirdYearPanel.grid(row=0, column=2, sticky="ns")
 # adding the title, labels and entries in the year 1 container
 year1Title = Label(firstYearPanel, text="Year 1 Modules", font=boldFont)
 year1Title.grid(row=0, column=0, columnspan=2, pady=10)
+year1Entries = []
 for index in range(1, 8):
     label = Label(firstYearPanel, text='Module ' + str(index) + " (15 credits)")
     entry = Entry(firstYearPanel, width=6, justify='center')
+    year1Entries.append(entry)
     label.grid(row=index, column=0, pady=7)
     entry.grid(row=index, column=1, pady=7)
 
 # adding the title, labels and entries in the year 2 container
 year2Title = Label(secondYearPanel, text="Year 2 Modules", font=boldFont)
 year2Title.grid(row=0, column=0, columnspan=2, pady=10)
+year2Entries = []
 for index in range(1, 8):
     label = Label(secondYearPanel, text='Module ' + str(index) + " (15 credits)")
     entry = Entry(secondYearPanel, width=6, justify='center')
+    year2Entries.append(entry)
     label.grid(row=index, column=0, pady=7)
     entry.grid(row=index, column=1, pady=7)
 
 # adding the title, labels and entries in the year 3 container
 year3Title = Label(thirdYearPanel, text="Year 3 Modules", font=boldFont)
 year3Title.grid(row=0, column=0, columnspan=2, pady=10)
+year3Entries = []
 for index in range(1, 8):
     label = Label(thirdYearPanel, text='Module ' + str(index) + " (15 credits)")
     entry = Entry(thirdYearPanel, width=6, justify='center')
+    year3Entries.append(entry)
     label.grid(row=index, column=0, pady=7)
     entry.grid(row=index, column=1, pady=7)
 
@@ -81,6 +132,8 @@ Label(resultsPanel, text="Note the weight of the modules of each year is higher 
                          "1st-year : 2nd-year : 3rd-year \n1 : 3 : 5") \
     .grid(row=0, column=2, columnspan=2, rowspan=2, pady=5, padx=5, sticky="W")
 
-Button(buttonPanel, text='Submit').grid(row=0, column=0)
+submitButton = Button(buttonPanel, text='Submit')
+submitButton.grid(row=0, column=0)
+submitButton.bind("<Button-1>", calculate_grade_and_classification)
 
 root.mainloop()

@@ -57,6 +57,27 @@ def calculate_grade_and_classification(event):
     classification_label.set(classification)
 
 
+def add_year_modules(yearNumber, yearPanel):
+    year_title = Label(yearPanel, text="Year " + str(yearNumber) + " Modules", font=boldFont)
+    year_title.grid(row=0, column=0, columnspan=2, pady=10)
+    year_entries = []
+    label = Label(yearPanel, text="Module 1 (30 credits)")
+    v = StringVar(root, value=70)
+    entry = Entry(yearPanel, textvariable=v, width=6, justify='center')
+    year_entries.append(entry)
+    year_entries.append(entry)
+    label.grid(row=1, column=0, pady=7)
+    entry.grid(row=1, column=1, pady=7)
+    for index in range(2, 8):
+        label = Label(yearPanel, text='Module ' + str(index) + " (15 credits)")
+        v = StringVar(root, value=70)
+        entry = Entry(yearPanel, textvariable=v, width=6, justify='center')
+        year_entries.append(entry)
+        label.grid(row=index, column=0, pady=7)
+        entry.grid(row=index, column=1, pady=7)
+    return year_entries
+
+
 root = Tk()
 root.title("My Uni Grades Calculator")
 
@@ -91,70 +112,19 @@ firstYearPanel.grid(row=0, column=0, sticky="ns")
 secondYearPanel.grid(row=0, column=1, sticky="nsew")
 thirdYearPanel.grid(row=0, column=2, sticky="ns")
 
-# adding the title, labels and entries in the year 1 container
-year1Title = Label(firstYearPanel, text="Year 1 Modules", font=boldFont)
-year1Title.grid(row=0, column=0, columnspan=2, pady=10)
-year1Entries = []
-label = Label(firstYearPanel, text="Module 1 (30 credits)")
-v = StringVar(root, value=70)
-entry = Entry(firstYearPanel, textvariable=v, width=6, justify='center')
-year1Entries.append(entry)
-year1Entries.append(entry)
-label.grid(row=1, column=0, pady=7)
-entry.grid(row=1, column=1, pady=7)
-for index in range(2, 8):
-    label = Label(firstYearPanel, text='Module ' + str(index) + " (15 credits)")
-    v = StringVar(root, value=70)
-    entry = Entry(firstYearPanel, textvariable=v, width=6, justify='center')
-    year1Entries.append(entry)
-    label.grid(row=index, column=0, pady=7)
-    entry.grid(row=index, column=1, pady=7)
+# adding all 7 modules to the year panels
+year1Entries = add_year_modules(1, firstYearPanel)
+year2Entries = add_year_modules(2, secondYearPanel)
+year3Entries = add_year_modules(3, thirdYearPanel)
+
 year1score_label = StringVar()
-Label(firstYearPanel, text="Year Average:", font=boldFont).grid(row=8, column=0, pady=7, padx=7)
+Label(firstYearPanel, text="Year 1 Average:", font=boldFont).grid(row=8, column=0, pady=7, padx=7)
 Label(firstYearPanel, textvariable=year1score_label, font=boldFont).grid(row=8, column=1, pady=7, padx=7)
-
-# adding the title, labels and entries in the year 2 container
-year2Title = Label(secondYearPanel, text="Year 2 Modules", font=boldFont)
-year2Title.grid(row=0, column=0, columnspan=2, pady=10)
-year2Entries = []
-label = Label(secondYearPanel, text="Module 1 (30 credits)")
-v = StringVar(root, value=70)
-entry = Entry(secondYearPanel, textvariable=v, width=6, justify='center')
-year2Entries.append(entry)
-year2Entries.append(entry)
-label.grid(row=1, column=0, pady=7)
-entry.grid(row=1, column=1, pady=7)
-for index in range(2, 8):
-    label = Label(secondYearPanel, text='Module ' + str(index) + " (15 credits)")
-    v = StringVar(root, value=70)
-    entry = Entry(secondYearPanel, textvariable=v, width=6, justify='center')
-    year2Entries.append(entry)
-    label.grid(row=index, column=0, pady=7)
-    entry.grid(row=index, column=1, pady=7)
 year2score_label = StringVar()
-Label(secondYearPanel, text="Year Average:", font=boldFont).grid(row=8, column=0, pady=7, padx=7)
+Label(secondYearPanel, text="Year 2 Average:", font=boldFont).grid(row=8, column=0, pady=7, padx=7)
 Label(secondYearPanel, textvariable=year2score_label, font=boldFont).grid(row=8, column=1, pady=7, padx=7)
-
-# adding the title, labels and entries in the year 3 container
-year3Title = Label(thirdYearPanel, text="Year 3 Modules", font=boldFont)
-year3Title.grid(row=0, column=0, columnspan=2, pady=10)
-year3Entries = []
-label = Label(thirdYearPanel, text="Module 1 (30 credits)")
-v = StringVar(root, value=70)
-entry = Entry(thirdYearPanel, textvariable=v, width=6, justify='center')
-year3Entries.append(entry)
-year3Entries.append(entry)
-label.grid(row=1, column=0, pady=7)
-entry.grid(row=1, column=1, pady=7)
-for index in range(2, 8):
-    label = Label(thirdYearPanel, text='Module ' + str(index) + " (15 credits)")
-    v = StringVar(root, value=70)
-    entry = Entry(thirdYearPanel, textvariable=v, width=6, justify='center')
-    year3Entries.append(entry)
-    label.grid(row=index, column=0, pady=7)
-    entry.grid(row=index, column=1, pady=7)
 year3score_label = StringVar()
-Label(thirdYearPanel, text="Year Average:", font=boldFont).grid(row=8, column=0, pady=7, padx=7)
+Label(thirdYearPanel, text="Year 3 Average:", font=boldFont).grid(row=8, column=0, pady=7, padx=7)
 Label(thirdYearPanel, textvariable=year3score_label, font=boldFont).grid(row=8, column=1, pady=7, padx=7)
 
 

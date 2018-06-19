@@ -5,14 +5,23 @@ def get_year_average(array_of_entries):
     total = 0
     try:
         for number in array_of_entries:
+            if int(number.get()) < 40:
+                info_label_text.set("Scoring less than 40 in any of the modules "
+                                    "means you have failed that module and the degree.")
+                return 0
+            if int(number.get()) > 100:
+                info_label_text.set("You cannot have a module with a score greater than 100.")
+                return 0
             total += int(number.get())
     except ValueError:
-        print('ValueError')
+        info_label_text.set("ValueError: invalid input in one of the entries.")
         return 0
     return round(total / len(array_of_entries), 2)
 
 
 def calculate_grade(first_year_average, second_year_average, third_year_average):
+    if first_year_average < 40 or second_year_average < 40 or third_year_average < 40:
+        return 0
     total = first_year_average + (second_year_average * 3) + (third_year_average * 5)
     return round(total / 9, 2)
 
@@ -37,6 +46,9 @@ def calculate_grade_and_classification(event):
 
     grade = calculate_grade(year1average, year2average, year3average)
     classification = degree_classification(grade)
+
+    if classification != "Fail":
+        info_label_text.set("Congratulations! You have passed with a " + classification)
 
     year1score_label.set(year1average)
     year2score_label.set(year2average)
@@ -85,7 +97,8 @@ year1Title.grid(row=0, column=0, columnspan=2, pady=10)
 year1Entries = []
 for index in range(1, 8):
     label = Label(firstYearPanel, text='Module ' + str(index) + " (15 credits)")
-    entry = Entry(firstYearPanel, width=6, justify='center')
+    v = StringVar(root, value=70)
+    entry = Entry(firstYearPanel, textvariable=v, width=6, justify='center')
     year1Entries.append(entry)
     label.grid(row=index, column=0, pady=7)
     entry.grid(row=index, column=1, pady=7)
@@ -99,7 +112,8 @@ year2Title.grid(row=0, column=0, columnspan=2, pady=10)
 year2Entries = []
 for index in range(1, 8):
     label = Label(secondYearPanel, text='Module ' + str(index) + " (15 credits)")
-    entry = Entry(secondYearPanel, width=6, justify='center')
+    v = StringVar(root, value=70)
+    entry = Entry(secondYearPanel, textvariable=v, width=6, justify='center')
     year2Entries.append(entry)
     label.grid(row=index, column=0, pady=7)
     entry.grid(row=index, column=1, pady=7)
@@ -113,7 +127,8 @@ year3Title.grid(row=0, column=0, columnspan=2, pady=10)
 year3Entries = []
 for index in range(1, 8):
     label = Label(thirdYearPanel, text='Module ' + str(index) + " (15 credits)")
-    entry = Entry(thirdYearPanel, width=6, justify='center')
+    v = StringVar(root, value=70)
+    entry = Entry(thirdYearPanel, textvariable=v, width=6, justify='center')
     year3Entries.append(entry)
     label.grid(row=index, column=0, pady=7)
     entry.grid(row=index, column=1, pady=7)

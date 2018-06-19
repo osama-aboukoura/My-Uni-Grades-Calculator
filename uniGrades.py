@@ -95,7 +95,14 @@ thirdYearPanel.grid(row=0, column=2, sticky="ns")
 year1Title = Label(firstYearPanel, text="Year 1 Modules", font=boldFont)
 year1Title.grid(row=0, column=0, columnspan=2, pady=10)
 year1Entries = []
-for index in range(1, 8):
+label = Label(firstYearPanel, text="Module 1 (30 credits)")
+v = StringVar(root, value=70)
+entry = Entry(firstYearPanel, textvariable=v, width=6, justify='center')
+year1Entries.append(entry)
+year1Entries.append(entry)
+label.grid(row=1, column=0, pady=7)
+entry.grid(row=1, column=1, pady=7)
+for index in range(2, 8):
     label = Label(firstYearPanel, text='Module ' + str(index) + " (15 credits)")
     v = StringVar(root, value=70)
     entry = Entry(firstYearPanel, textvariable=v, width=6, justify='center')
@@ -110,7 +117,14 @@ Label(firstYearPanel, textvariable=year1score_label, font=boldFont).grid(row=8, 
 year2Title = Label(secondYearPanel, text="Year 2 Modules", font=boldFont)
 year2Title.grid(row=0, column=0, columnspan=2, pady=10)
 year2Entries = []
-for index in range(1, 8):
+label = Label(secondYearPanel, text="Module 1 (30 credits)")
+v = StringVar(root, value=70)
+entry = Entry(secondYearPanel, textvariable=v, width=6, justify='center')
+year2Entries.append(entry)
+year2Entries.append(entry)
+label.grid(row=1, column=0, pady=7)
+entry.grid(row=1, column=1, pady=7)
+for index in range(2, 8):
     label = Label(secondYearPanel, text='Module ' + str(index) + " (15 credits)")
     v = StringVar(root, value=70)
     entry = Entry(secondYearPanel, textvariable=v, width=6, justify='center')
@@ -125,7 +139,14 @@ Label(secondYearPanel, textvariable=year2score_label, font=boldFont).grid(row=8,
 year3Title = Label(thirdYearPanel, text="Year 3 Modules", font=boldFont)
 year3Title.grid(row=0, column=0, columnspan=2, pady=10)
 year3Entries = []
-for index in range(1, 8):
+label = Label(thirdYearPanel, text="Module 1 (30 credits)")
+v = StringVar(root, value=70)
+entry = Entry(thirdYearPanel, textvariable=v, width=6, justify='center')
+year3Entries.append(entry)
+year3Entries.append(entry)
+label.grid(row=1, column=0, pady=7)
+entry.grid(row=1, column=1, pady=7)
+for index in range(2, 8):
     label = Label(thirdYearPanel, text='Module ' + str(index) + " (15 credits)")
     v = StringVar(root, value=70)
     entry = Entry(thirdYearPanel, textvariable=v, width=6, justify='center')

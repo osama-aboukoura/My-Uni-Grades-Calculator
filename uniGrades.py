@@ -1,7 +1,7 @@
 from tkinter import *
 
 
-def average(array_of_entries):
+def get_year_average(array_of_entries):
     total = 0
     try:
         for number in array_of_entries:
@@ -31,18 +31,18 @@ def degree_classification(final_grade):
 
 
 def calculate_grade_and_classification(event):
-    year1average = average(year1Entries)
-    year2average = average(year2Entries)
-    year3average = average(year3Entries)
-    print(year1average)
-    print(year2average)
-    print(year3average)
+    year1average = get_year_average(year1Entries)
+    year2average = get_year_average(year2Entries)
+    year3average = get_year_average(year3Entries)
 
-    final_grade = calculate_grade(year1average, year2average, year3average)
-    print(final_grade)
+    grade = calculate_grade(year1average, year2average, year3average)
+    classification = degree_classification(grade)
 
-    results = degree_classification(final_grade)
-    print(results)
+    year1score_label.set(year1average)
+    year2score_label.set(year2average)
+    year3score_label.set(year3average)
+    grade_label.set(grade)
+    classification_label.set(classification)
 
 
 root = Tk()
@@ -50,15 +50,17 @@ root.title("My Uni Grades Calculator")
 
 boldFont = ("Helvetica", 16, "bold")
 
-# creating the 3 main containers
-top_frame = Frame(root, bg='#E67E22', width=200, height=50, pady=5, padx=5)
-center_frame = Frame(root, bg='#E67E22', width=200, height=40)
-btm_frame = Frame(root, bg='#E67E22', width=200, height=100, pady=5)
+# creating the 4 main containers
+top_frame = Frame(root, bg='#E67E22', width=200, pady=5, padx=5)
+center_frame = Frame(root, bg='#E67E22', width=200)
+info_frame = Frame(root, bg='gray', width=200, height=100, pady=20, padx=10)
+btm_frame = Frame(root, bg='#E67E22', width=200, pady=5)
 
-# adding the 3 main containers to the root
+# adding the 4 main containers to the root
 top_frame.grid(row=0, sticky="ew")
 center_frame.grid(row=1, sticky="nsew")
-btm_frame.grid(row=2, sticky="ew")
+info_frame.grid(row=2, sticky="ew")
+btm_frame.grid(row=3, sticky="ew")
 
 # adding the main title to the top frame
 mainTitle = Label(top_frame, text="Welcome to My Uni Grades Calculator", fg="red", font=("Helvetica", 20, "bold"))
@@ -68,9 +70,9 @@ mainTitle.pack(expand=YES, fill=X)
 message.pack(expand=YES, fill=X)
 
 # creating the 3 middle vertical containers
-firstYearPanel = Frame(center_frame, bg='#5499C7', height=250, padx=30, pady=10)
-secondYearPanel = Frame(center_frame, bg='#F4D03F', height=250, padx=30, pady=10)
-thirdYearPanel = Frame(center_frame, bg='#2ECC71', height=250, padx=30, pady=10)
+firstYearPanel = Frame(center_frame, bg='#5499C7', padx=30, pady=10)
+secondYearPanel = Frame(center_frame, bg='#F4D03F', padx=30, pady=10)
+thirdYearPanel = Frame(center_frame, bg='#2ECC71', padx=30, pady=10)
 
 # adding the 3 middle containers to the centre frame
 firstYearPanel.grid(row=0, column=0, sticky="ns")
@@ -87,6 +89,9 @@ for index in range(1, 8):
     year1Entries.append(entry)
     label.grid(row=index, column=0, pady=7)
     entry.grid(row=index, column=1, pady=7)
+year1score_label = StringVar()
+Label(firstYearPanel, text="Year Average:", font=boldFont).grid(row=8, column=0, pady=7, padx=7)
+Label(firstYearPanel, textvariable=year1score_label, font=boldFont).grid(row=8, column=1, pady=7, padx=7)
 
 # adding the title, labels and entries in the year 2 container
 year2Title = Label(secondYearPanel, text="Year 2 Modules", font=boldFont)
@@ -98,6 +103,9 @@ for index in range(1, 8):
     year2Entries.append(entry)
     label.grid(row=index, column=0, pady=7)
     entry.grid(row=index, column=1, pady=7)
+year2score_label = StringVar()
+Label(secondYearPanel, text="Year Average:", font=boldFont).grid(row=8, column=0, pady=7, padx=7)
+Label(secondYearPanel, textvariable=year2score_label, font=boldFont).grid(row=8, column=1, pady=7, padx=7)
 
 # adding the title, labels and entries in the year 3 container
 year3Title = Label(thirdYearPanel, text="Year 3 Modules", font=boldFont)
@@ -109,6 +117,19 @@ for index in range(1, 8):
     year3Entries.append(entry)
     label.grid(row=index, column=0, pady=7)
     entry.grid(row=index, column=1, pady=7)
+year3score_label = StringVar()
+Label(thirdYearPanel, text="Year Average:", font=boldFont).grid(row=8, column=0, pady=7, padx=7)
+Label(thirdYearPanel, textvariable=year3score_label, font=boldFont).grid(row=8, column=1, pady=7, padx=7)
+
+
+# add information label to the info container
+info_label_text = StringVar()
+info_label_text.set('No information available.')
+information = Label(info_frame, text="INFO:", font=boldFont, anchor="w")
+info_label = Label(info_frame, textvariable=info_label_text, wraplength=800, anchor="w")
+information.pack(expand=YES, fill=X)
+info_label.pack(expand=YES, fill=X)
+
 
 # creating 2 containers for the result labels and submit button
 resultsPanel = Frame(btm_frame, bg='#E74C3C', height=250, padx=20, pady=10)
@@ -116,17 +137,17 @@ buttonPanel = Frame(btm_frame, bg='#E74C3C', height=250, padx=30, pady=10)
 
 # adding the 2 containers to the bottom frame
 buttonPanel.pack(side=RIGHT)
-resultsPanel.pack(side=RIGHT, fill=BOTH, expand=1)
+resultsPanel.pack(side=RIGHT, fill=BOTH, expand=YES)
 
 # mock data
-grade = "100.0"
-classification = "1st Class"
+grade_label = StringVar()
+classification_label = StringVar()
 
 # adding labels and submit button to their containers
 Label(resultsPanel, text='Final Grade', font=boldFont).grid(row=0, column=0, pady=5, padx=5, sticky="E")
 Label(resultsPanel, text='Degree Classification', font=boldFont).grid(row=1, column=0, pady=5, padx=5, sticky="E")
-Label(resultsPanel, text=grade, font=boldFont).grid(row=0, column=1, pady=5, padx=5, sticky="W")
-Label(resultsPanel, text=classification, font=boldFont).grid(row=1, column=1, pady=5, padx=5, sticky="W")
+Label(resultsPanel, textvariable=grade_label, font=boldFont).grid(row=0, column=1, pady=5, padx=5, sticky="W")
+Label(resultsPanel, textvariable=classification_label, font=boldFont).grid(row=1, column=1, pady=5, padx=5, sticky="W")
 Label(resultsPanel, text="Note the weight of the modules of each year is higher than\n" +
                          "the weight of previous years' modules and that the ratio is \n" +
                          "1st-year : 2nd-year : 3rd-year \n1 : 3 : 5") \

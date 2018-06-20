@@ -1,5 +1,6 @@
 from tkinter import *
-
+from tkinter import messagebox
+from Database import *
 
 def get_year_average(array_of_entries):
     total = 0
@@ -76,6 +77,25 @@ def add_year_modules(yearNumber, yearPanel):
         label.grid(row=index, column=0, pady=7)
         entry.grid(row=index, column=1, pady=7)
     return year_entries
+
+
+def on_close():
+    if messagebox.askquestion("Quit", "Do you want to save grades before you quit?"):
+        year1table = create_table('year1')
+        year2table = create_table('year2')
+        year3table = create_table('year3')
+
+        # grade index 0 is omitted because it was added twice to the year entry arrays (30 credits)
+        for index in range(1, len(year1Entries)):
+            insert_grades_into_table(year1table, "Module " + str(index), year1Entries[index].get())
+
+        for index in range(1, len(year2Entries)):
+            insert_grades_into_table(year2table, "Module " + str(index), year2Entries[index].get())
+
+        for index in range(1, len(year3Entries)):
+            insert_grades_into_table(year3table, "Module " + str(index), year3Entries[index].get())
+
+    root.destroy()
 
 
 root = Tk()
@@ -162,5 +182,7 @@ Label(resultsPanel, text="Note the weight of the modules of each year is higher 
 submitButton = Button(buttonPanel, text='Submit')
 submitButton.grid(row=0, column=0)
 submitButton.bind("<Button-1>", calculate_grade_and_classification)
+
+root.protocol("WM_DELETE_WINDOW", on_close)
 
 root.mainloop()

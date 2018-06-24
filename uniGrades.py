@@ -60,13 +60,11 @@ def calculate_grade_and_classification(event):
 
 
 def add_year_modules(yearNumber, yearPanel, database_grades):
-    if len(database_grades) == 0:  # if database had no grades use 60 as default
-        database_grades = [60, 60, 60, 60, 60, 60, 60]
     year_title = Label(yearPanel, text="Year " + str(yearNumber) + " Modules", font=boldFont)
     year_title.grid(row=0, column=0, columnspan=2, pady=10)
     year_entries = []
     label = Label(yearPanel, text="Module 1 (30 credits)")
-    v = StringVar(root, value=70)  # default value
+    v = StringVar()
     v.set(database_grades[0])  # value from database
     entry = Entry(yearPanel, textvariable=v, width=6, justify='center')
     year_entries.append(entry)
@@ -75,7 +73,7 @@ def add_year_modules(yearNumber, yearPanel, database_grades):
     entry.grid(row=1, column=1, pady=7)
     for index in range(2, 8):
         label = Label(yearPanel, text='Module ' + str(index) + " (15 credits)")
-        v = StringVar(root, value=70)
+        v = StringVar()
         v.set(database_grades[index-1])
         entry = Entry(yearPanel, textvariable=v, width=6, justify='center')
         year_entries.append(entry)
@@ -135,16 +133,10 @@ secondYearPanel.grid(row=0, column=1, sticky="nsew")
 thirdYearPanel.grid(row=0, column=2, sticky="ns")
 
 
-# getting grades from database
-year1grades = []
-if check_if_table_exists('year1'):
-    year1grades = get_grades_from_table('year1')
-year2grades = []
-if check_if_table_exists('year2'):
-    year2grades = get_grades_from_table('year2')
-year3grades = []
-if check_if_table_exists('year3'):
-    year3grades = get_grades_from_table('year3')
+# getting grades from database. if no tables exist, 60s are the default
+year1grades = get_grades_for_year('year1')
+year2grades = get_grades_for_year('year2')
+year3grades = get_grades_for_year('year3')
 
 # adding all 7 modules to the year panels
 year1Entries = add_year_modules(1, firstYearPanel, year1grades)

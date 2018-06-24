@@ -29,11 +29,13 @@ def check_if_table_exists(table_name):
         return False
 
 
-def get_grades_from_table(table_name):
+def get_grades_for_year(table_name):
     year_grades = []
-    table = c.execute("SELECT * FROM " + table_name)
-    for row in table:
-        print(row[1])
-        year_grades.append(row[1])
+    if check_if_table_exists(table_name):
+        table = c.execute("SELECT * FROM " + table_name)
+        for row in table:
+            year_grades.append(row[1])
+    else:
+        year_grades = [60, 60, 60, 60, 60, 60, 60]
 
     return year_grades

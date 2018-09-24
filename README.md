@@ -19,7 +19,8 @@ Year 3 carries 5/9 of the overall degree weight.
 
 To run the code: 
 
-1. You will first need to have Python3 installed on your machine. 
+1. You will first need to have Python3 installed on your machine. You can download it from this [link](https://www.python.org/downloads/)
+
 
 2. Clone the repo on your pc as follows:
 

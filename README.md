@@ -4,7 +4,7 @@
 
 A university grades calculator that follows the grading system for any 3 year course at the Informatics department at my university (King's College London)
 
-The ratio of year 1 to year 2 to year 3 is as follows:
+The ratio of year 1 to year 2 to year 3 is:
 1:3:5 
 
 which means:

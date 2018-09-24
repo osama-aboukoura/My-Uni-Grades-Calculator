@@ -2,7 +2,7 @@
 
 ## Background: 
 
-A university grades calculator that follows the grading system for any 3 year course at the Informatics department at my university (King's College London)
+A university grades calculator that follows the grading system for any 3 year course at the Informatics department at my university (King's College London).
 
 The ratio of year 1 to year 2 to year 3 is:
 1:3:5 
@@ -19,14 +19,14 @@ Year 3 carries 5/9 of the overall degree weight.
 
 To run the code: 
 
-1. You will first need to have Python3 installed on your machine. You can download it from this [link](https://www.python.org/downloads/)
+1. You will first need to have Python3 installed on your machine. You can download it from this [link](https://www.python.org/downloads/).
 
 
 2. Clone the repo on your pc as follows:
 
   ```git clone https://github.com/osama-aboukoura/My-Uni-Grades-Calculator.git```
 
-3. Change directory into the directory that you just cloned. 
+3. Change directory into the directory that you just cloned:
 
   ```cd My-Uni-Grades-Calculator```
 
